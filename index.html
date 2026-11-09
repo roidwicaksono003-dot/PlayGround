@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#073b4c">
+  <title>Solstice Isle — A Cozy Survival Story</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="game" aria-label="Solstice Isle survival game">
+    <canvas id="scene" aria-label="Isometric island game world"></canvas>
+    <div class="vignette"></div>
+    <header class="topbar">
+      <div class="brand"><div class="brand-mark">✦</div><div><strong>SOLSTICE ISLE</strong><small>AN ISLAND SURVIVAL STORY</small></div></div>
+      <div class="day-pill"><span class="sun-icon">☀</span><span id="day-label">DAY 1</span><i></i><span id="clock-label">08:00</span></div>
+      <button id="sound-toggle" class="icon-button" aria-label="Toggle sound">♫</button>
+    </header>
+    <section class="status-panel glass">
+      <div class="status-title"><span>FIELD STATUS</span><span id="weather">CLEAR SKIES</span></div>
+      <div class="meter"><span class="meter-icon heart">♥</span><div class="meter-track"><div id="health-fill" class="meter-fill health"></div></div><b id="health-value">100</b></div>
+      <div class="meter"><span class="meter-icon food">◒</span><div class="meter-track"><div id="hunger-fill" class="meter-fill hunger"></div></div><b id="hunger-value">100</b></div>
+      <div class="meter"><span class="meter-icon water">◆</span><div class="meter-track"><div id="thirst-fill" class="meter-fill thirst"></div></div><b id="thirst-value">100</b></div>
+    </section>
+    <section class="inventory glass">
+      <div class="inventory-heading">BACKPACK <span id="inventory-cap">0 / 24</span></div>
+      <div class="resource-list">
+        <div><span class="resource-icon wood">♠</span><span>Driftwood</span><b id="wood-count">0</b></div>
+        <div><span class="resource-icon stone">◆</span><span>Stone</span><b id="stone-count">0</b></div>
+        <div><span class="resource-icon fiber">〰</span><span>Vine fiber</span><b id="fiber-count">0</b></div>
+        <div><span class="resource-icon berry">●</span><span>Island fruit</span><b id="berry-count">0</b></div>
+      </div>
+    </section>
+    <aside class="quest-card glass">
+      <div class="quest-kicker"><span>✧</span> YOUR WAY HOME</div>
+      <h2 id="quest-title">Find the old beacon</h2>
+      <p id="quest-copy">Gather supplies around the island and repair the lighthouse signal.</p>
+      <div class="quest-progress"><div class="progress-track"><div id="quest-progress-fill"></div></div><span id="quest-progress-label">0 / 13</span></div>
+      <div class="recipe"><span>REPAIR NEEDS</span><div><b>♠ <i id="need-wood">0</i>/6</b><b>◆ <i id="need-stone">0</i>/4</b><b>〰 <i id="need-fiber">0</i>/3</b></div></div>
+    </aside>
+    <div id="hint" class="hint-pill glass">Move close to something to interact</div>
+    <div class="bottom-ui">
+      <div class="move-control" id="joystick" aria-label="Movement joystick"><div class="joy-ring"><div id="joy-knob"></div></div><span>MOVE</span></div>
+      <div class="quick-actions">
+        <button id="interact-button" class="action-button primary" aria-label="Interact"><span class="action-icon">✦</span><b>INTERACT</b><small id="interact-label">Explore</small></button>
+        <button id="eat-button" class="action-button" aria-label="Eat fruit"><span class="action-icon">●</span><b>EAT</b><small>Fruit</small></button>
+        <button id="craft-button" class="action-button" aria-label="Craft shelter"><span class="action-icon">⌂</span><b>CRAFT</b><small id="craft-label">Shelter</small></button>
+      </div>
+    </div>
+    <div class="help-tip"><span>WASD</span> move <span>E</span> interact <span>F</span> eat <span>C</span> craft</div>
+    <div id="toast" class="toast" aria-live="polite"></div>
+    <div id="start-screen" class="screen-overlay">
+      <div class="start-card glass">
+        <div class="island-stamp">✦</div>
+        <p class="eyebrow">A LITTLE ISLAND ADVENTURE</p>
+        <h1>Find your way<br><em>back home.</em></h1>
+        <p class="intro">A storm brought you to a quiet island. Gather what you need, take care of yourself, and light the old beacon.</p>
+        <div class="start-facts"><span>◷ &nbsp;COZY SURVIVAL</span><span>⌖ &nbsp;EXPLORE & CRAFT</span></div>
+        <button id="start-button" class="start-button">SET FOOT ON THE ISLAND <span>→</span></button>
+        <small class="note">A gentle adventure · No rush, find your own pace</small>
+      </div>
+      <div class="screen-decoration">SOUTH PACIFIC &nbsp;·&nbsp; 18° 24′ S</div>
+    </div>
+    <div id="end-screen" class="screen-overlay hidden">
+      <div class="start-card glass ending-card"><div class="island-stamp">☼</div><p class="eyebrow">SIGNAL RECEIVED</p><h1>You found<br><em>your way home.</em></h1><p class="intro">The beacon's light reaches beyond the reef. A rescue boat is on its way—until then, enjoy one last sunset.</p><button id="play-again" class="start-button">PLAY AGAIN <span>↻</span></button></div>
+    </div>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>
