@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no" />
+    <meta name="theme-color" content="#081b22" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='29' fill='%235b9990'/%3E%3Cpath d='M9 39q11-10 23 0t23 0v13H9z' fill='%23f1d49b'/%3E%3C/svg%3E" />
+    <meta name="description" content="Tidebound — a tiny island survival story. Gather, build a signal fire, and call the rescue ship home." />
+    <title>Tidebound — Island Survival</title>
+    <script type="module" crossorigin src="./assets/index-h68N4hGx.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-Dk4ZTOMp.css">
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="scene" aria-label="Tidebound 3D island"></canvas>
+      <div class="grade" aria-hidden="true"></div>
+      <div class="grain" aria-hidden="true"></div>
+
+      <div id="loading" class="loading">
+        <div class="loading-mark">
+          <span class="loading-sun"></span>
+          <span class="loading-wave"></span>
+        </div>
+        <p>Washing ashore…</p>
+      </div>
+
+      <section id="start-screen" class="start-screen" aria-label="Title screen">
+        <div class="start-shade"></div>
+        <div class="start-content">
+          <p class="eyebrow"><span></span> A tiny island survival story</p>
+          <h1>TIDE<span>BOUND</span></h1>
+          <p class="start-copy">Washed ashore with nothing but your wits. Gather the island's gifts, build a signal fire, and call the rescue ship before the tide turns.</p>
+
+          <div class="cast-card">
+            <canvas id="portrait" width="220" height="220" aria-hidden="true"></canvas>
+            <div>
+              <span class="cast-label">CASTAWAY 01</span>
+              <strong>Mio</strong>
+              <p>Fisherman's daughter.<br />Stubborn as the sea.</p>
+            </div>
+            <span class="cast-day">DAY<br /><b>01</b></span>
+          </div>
+
+          <button id="start-button" class="start-button">
+            <span>Start adventure</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" /></svg>
+          </button>
+
+          <div class="start-controls">
+            <span><i class="key">WASD</i> move</span>
+            <span><i class="drag-icon"></i> drag to look</span>
+            <span><i class="key">E</i> interact</span>
+          </div>
+          <p class="start-note">Touch controls appear on phones &amp; tablets. Headphones recommended.</p>
+        </div>
+        <div class="start-coord">12° 04′ N · 103° 51′ E</div>
+      </section>
+
+      <div id="intro" class="intro" aria-hidden="true">
+        <div class="intro-inner">
+          <span class="intro-rule"></span>
+          <p>DAY ONE</p>
+          <strong>The wreck of the Koi Maru</strong>
+          <em>Only the tide knows your name.</em>
+        </div>
+      </div>
+
+      <section id="hud" class="hud" aria-label="Game interface">
+        <div class="hud-top">
+          <div class="vitals-panel glass">
+            <div class="vitals-heading">
+              <div class="avatar-mini"><canvas id="portrait-mini" width="96" height="96"></canvas></div>
+              <div>
+                <span class="hud-label">SURVIVOR</span>
+                <strong>Mio</strong>
+              </div>
+              <span id="weather-icon" class="weather" title="Clear skies">☀</span>
+            </div>
+            <div class="vital" data-vital="health">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5S3.5 15 3.5 8.8A4.6 4.6 0 0 1 12 5.8a4.6 4.6 0 0 1 8.5 3c0 6.2-8.5 11.7-8.5 11.7Z" /></svg>
+              <div class="vital-track"><i id="health-bar"></i></div>
+              <b id="health-value">100</b>
+            </div>
+            <div class="vital" data-vital="hunger">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v7c0 1.7.9 2.7 2 3.2V21h2v-7.8c1.1-.5 2-1.5 2-3.2V3h-1.6v6H10V3H8.6v6H7.6V3H7Z" /><path d="M16 3c-1.7 0-3 1.7-3 4 0 2 .9 3.4 2 3.8V21h2V3h-1Z" /></svg>
+              <div class="vital-track"><i id="hunger-bar"></i></div>
+              <b id="hunger-value">80</b>
+            </div>
+            <div class="vital" data-vital="thirst">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5S5.5 10 5.5 14a6.5 6.5 0 0 0 13 0C18.5 10 12 2.5 12 2.5Z" /></svg>
+              <div class="vital-track"><i id="thirst-bar"></i></div>
+              <b id="thirst-value">70</b>
+            </div>
+            <div class="vital" data-vital="energy">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m13.5 2-8 12h5L9.5 22l9-13h-5.2l.2-7Z" /></svg>
+              <div class="vital-track"><i id="energy-bar"></i></div>
+              <b id="energy-value">100</b>
+            </div>
+          </div>
+
+          <div class="compass-wrap">
+            <div class="compass">
+              <div id="compass-tape" class="compass-tape"></div>
+              <span class="compass-needle"></span>
+            </div>
+            <div id="compass-goal" class="compass-goal"><i></i><span>signal fire</span></div>
+          </div>
+
+          <div class="hud-actions">
+            <div class="day-pill glass">
+              <span id="day-label">DAY 1</span>
+              <strong id="time-label">09:20</strong>
+              <i id="day-dot"></i>
+            </div>
+            <button id="sound-button" class="icon-button glass" aria-label="Mute sound" title="Mute sound">
+              <svg class="sound-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Z" /><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8 8 0 0 1 0 12" /></svg>
+              <svg class="sound-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Z" /><path d="m16 9 5 6m0-6-5 6" /></svg>
+            </button>
+            <button id="help-button" class="icon-button glass" aria-label="How to play" title="How to play">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M9.8 9.2a2.4 2.4 0 1 1 3.2 2.3c-.8.3-1 .8-1 1.7" /><circle cx="12" cy="17" r=".7" fill="currentColor" stroke="none" /></svg>
+            </button>
+            <button id="pause-button" class="icon-button glass" aria-label="Pause" title="Pause">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14M16 5v14" /></svg>
+            </button>
+          </div>
+        </div>
+
+        <aside class="quest-card glass">
+          <div class="quest-heading">
+            <span>THE PLAN</span>
+            <button id="quest-toggle" aria-label="Toggle objectives">−</button>
+          </div>
+          <div id="quest-body" class="quest-body">
+            <div id="quest-step-1" class="quest-step active">
+              <span class="step-number">01</span>
+              <div>
+                <strong>Build a campfire</strong>
+                <p id="campfire-recipe">5 driftwood · 3 stone</p>
+                <div class="recipe-row" id="campfire-chips"></div>
+              </div>
+            </div>
+            <div id="quest-step-2" class="quest-step locked">
+              <span class="step-number">02</span>
+              <div>
+                <strong>Raise the signal fire</strong>
+                <p id="beacon-recipe">8 driftwood · 5 stone · 3 shells · 2 vine</p>
+                <div class="recipe-row" id="beacon-chips"></div>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <div id="toast-stack" class="toast-stack" aria-live="polite"></div>
+
+        <div id="interaction-prompt" class="interaction-prompt glass">
+          <span id="prompt-icon" class="prompt-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 11V5.5a1.5 1.5 0 0 1 3 0V10m0-4.5a1.5 1.5 0 0 1 3 0V10m0-3a1.5 1.5 0 0 1 3 0v5m0-2a1.5 1.5 0 0 1 3 0v3.5c0 3.6-2.4 6.5-6 6.5h-1c-2 0-3.3-.9-4.4-2.5L5 13.3a1.6 1.6 0 0 1 2.5-2l.5.7" /></svg>
+          </span>
+          <div>
+            <strong id="prompt-title">Gather driftwood</strong>
+            <span id="prompt-sub">E · collect</span>
+          </div>
+        </div>
+
+        <div class="inventory-bar glass" aria-label="Food pouch">
+          <button class="pouch-item" id="eat-coconut" aria-label="Eat a coconut">
+            <span class="pouch-art coconut-art"></span>
+            <span><b id="coconut-count">1</b><small>Coconut</small></span>
+            <em>1</em>
+          </button>
+          <span class="pouch-rule"></span>
+          <button class="pouch-item" id="eat-berry" aria-label="Eat berries">
+            <span class="pouch-art berry-art"></span>
+            <span><b id="berry-count">0</b><small>Berries</small></span>
+            <em>2</em>
+          </button>
+        </div>
+
+        <div id="joystick" class="joystick" aria-label="Movement joystick">
+          <div class="joystick-ring"></div>
+          <div id="joystick-knob" class="joystick-knob"></div>
+          <span class="joystick-hint">MOVE</span>
+        </div>
+
+        <button id="action-button" class="action-button" aria-label="Interact" disabled>
+          <span class="action-glow"></span>
+          <span id="action-icon" class="action-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 11V5.5a1.5 1.5 0 0 1 3 0V10m0-4.5a1.5 1.5 0 0 1 3 0V10m0-3a1.5 1.5 0 0 1 3 0v5m0-2a1.5 1.5 0 0 1 3 0v3.5c0 3.6-2.4 6.5-6 6.5h-1c-2 0-3.3-.9-4.4-2.5L5 13.3a1.6 1.6 0 0 1 2.5-2l.5.7" /></svg>
+          </span>
+          <b id="action-label">GATHER</b>
+          <small>E</small>
+        </button>
+
+        <div id="area-label" class="area-label"><span></span><b>Lagoon Beach</b></div>
+      </section>
+
+      <div id="modal" class="modal" aria-hidden="true">
+        <div class="modal-card glass">
+          <button id="modal-close" class="modal-close" aria-label="Close">×</button>
+          <p id="modal-kicker" class="modal-kicker">FIELD NOTES</p>
+          <h2 id="modal-title">How to survive</h2>
+          <div id="modal-content" class="modal-content"></div>
+          <button id="modal-primary" class="modal-primary">Back to the island</button>
+          <button id="modal-secondary" class="modal-secondary">Restart</button>
+        </div>
+      </div>
+
+      <div id="ending" class="ending" aria-hidden="true">
+        <div class="ending-card">
+          <p class="ending-kicker">SIGNAL SEEN</p>
+          <h2>Saved by the tide</h2>
+          <p>A fishing boat spotted your fire on the headland. Mio will be home before the moon is high.</p>
+          <div class="ending-stats">
+            <div><span>TIME ASHORE</span><b id="end-time">00:00</b></div>
+            <div><span>WOOD GATHERED</span><b id="end-wood">0</b></div>
+            <div><span>ISLAND SPIRIT</span><b id="end-spirit">★★★</b></div>
+          </div>
+          <button id="again-button" class="start-button"><span>Play again</span><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6" /></svg></button>
+        </div>
+      </div>
+
+      <div id="notice" class="notice" aria-live="assertive"></div>
+      <div id="rotate-hint" class="rotate-hint">Turn your device for a wider view</div>
+    </div>
+  </body>
+</html>
